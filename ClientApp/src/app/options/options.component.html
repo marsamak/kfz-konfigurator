@@ -1,0 +1,22 @@
+<h1 id="tableLabel">Options</h1>
+
+<p>This component demonstrates getting options from the server.</p>
+
+<p *ngIf="!options"><em>Loading...</em></p>
+
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="options">
+  <thead>
+    <tr>
+      <th>Group</th>
+      <th>Name</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let option of options">
+      <td>{{ option.group }}</td>
+      <td>{{ option.name}}</td>
+      <td>{{ option.price }}</td>
+    </tr>
+  </tbody>
+</table>
