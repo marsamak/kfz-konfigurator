@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { OptionsComponent } from './options/options.component';
 
+import { MatRadioModule } from '@angular/material/radio';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -21,6 +23,7 @@ import { OptionsComponent } from './options/options.component';
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
+    MatRadioModule,
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },

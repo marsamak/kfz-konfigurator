@@ -14,9 +14,3 @@ export class OptionsComponent {
     }, error => console.error(error));
   }
 }
-
-interface Option {
-  group: string;
-  name: string;
-  price: number;
-}
