@@ -1,9 +1,12 @@
-<div class="mat-elevation-z2 options-group" *ngFor='let group of optionsGroups'>
-  <mat-radio-group>
-    {{ group.group }}
+<div>
+  Gesamtpreis: {{ totalPrice() }} EUR
+</div>
+<div class=" options-group" *ngFor='let group of optionsGroups'>
+  <mat-radio-group [(ngModel)]="group.selected">
+    {{ group.group }} - {{ group.selected.price }} EUR
     <div>
       <mat-radio-button class="mat-elevation-z4 option" [value]="option" *ngFor='let option of group.options'>
-        {{ option.name }} {{ option.price }}
+        {{ option.name }}
       </mat-radio-button>
     </div>
   </mat-radio-group>

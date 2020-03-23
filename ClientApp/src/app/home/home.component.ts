@@ -20,8 +20,14 @@ export class HomeComponent {
           groups[option.group].push(option);
       });
       for (const key in groups) {
-        this.optionsGroups.push({'group':key, 'options':groups[key]});
+        this.optionsGroups.push({ 'group': key, 'options': groups[key], 'selected': groups[key][0] });
       }
     }, error => console.error(error));
+  }
+
+  totalPrice() {
+    var price = 0;
+    this.optionsGroups.forEach(group => { price += group.selected.price });
+    return price;
   }
 }
