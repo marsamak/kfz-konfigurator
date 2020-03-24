@@ -38,7 +38,10 @@ export class HomeComponent {
     order.totalPrice = this.totalPrice();
     this.optionsGroups.forEach(group => { order.optionIds.push(group.selected.id); });
     this.http.post<OrderResult>(this.baseUrl + "submitorder", order)
-      .subscribe(orderResult => { window.alert('Link to your order: ' + this.baseUrl + "vieworder/" + orderResult.orderId); });
+      .subscribe(orderResult => { 
+        window.alert('Link to your order: ' + this.baseUrl + "view-order/" + orderResult.orderId);
+        document.location.href = "/view-order/" + orderResult.orderId;
+      });
   }
 }
 class Order {

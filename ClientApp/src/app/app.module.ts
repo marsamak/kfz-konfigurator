@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
-import { CounterComponent } from './counter/counter.component';
+import { ViewOrderComponent } from './view-order/view-order.component';
 import { OptionsComponent } from './options/options.component';
 
 import { MatRadioModule } from '@angular/material/radio';
@@ -18,7 +18,7 @@ import {MatButtonModule} from '@angular/material/button';
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    CounterComponent,
+    ViewOrderComponent,
     OptionsComponent
   ],
   imports: [
@@ -29,7 +29,7 @@ import {MatButtonModule} from '@angular/material/button';
     FormsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'counter', component: CounterComponent },
+      { path: 'view-order/:id', component: ViewOrderComponent },
       { path: 'show-options', component: OptionsComponent },
     ])
   ],

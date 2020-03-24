@@ -1,0 +1,22 @@
+<h1 id="tableLabel">Bestellung</h1>
+
+<p *ngIf="!order"><em>Loading...</em></p>
+
+<p *ngIf="order"> Bestellungsnr. {{order.orderID}}.
+<br>Gesamtpreis: {{order.totalPrice}}.</p>
+<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="order">
+  <thead>
+    <tr>
+      <th>Gruppe</th>
+      <th>Name</th>
+      <th>Preis</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let option of order.orderedOptions">
+      <td>{{ option.group }}</td>
+      <td>{{ option.name }}</td>
+      <td>{{ option.price }}</td>
+    </tr>
+  </tbody>
+</table>
