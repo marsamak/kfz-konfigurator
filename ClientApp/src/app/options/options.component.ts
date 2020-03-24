@@ -6,10 +6,10 @@ import { HttpClient } from '@angular/common/http';
   templateUrl: './options.component.html'
 })
 export class OptionsComponent {
-  public options: Option[];
+  public options: ConfigOption[];
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
-    http.get<Option[]>(baseUrl + 'options').subscribe(result => {
+    http.get<ConfigOption[]>(baseUrl + 'options').subscribe(result => {
       this.options = result;
     }, error => console.error(error));
   }

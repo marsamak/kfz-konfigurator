@@ -14,8 +14,7 @@ class Database
 
     private Database(string connectionString)
     {
-        // Connect to a PostgreSQL database
-        Console.WriteLine("Database.connect: " + connectionString);
+        // Connect to a PostgreSQL database.
         Connection = new NpgsqlConnection(connectionString);
         Connection.Open();
     }
