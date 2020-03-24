@@ -26,6 +26,8 @@ namespace kfz_configurator
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            Database.connect(Configuration.GetConnectionString("KfzKonfiguratorDB"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,7 +1,12 @@
-<div>
-  Gesamtpreis: {{ totalPrice() }} EUR
+<div *ngIf='!optionsGroups'>
+  Loading...
 </div>
-<div class=" options-group" *ngFor='let group of optionsGroups'>
+<div class='summary mat-elevation-z5' *ngIf='optionsGroups'>
+  Gesamtpreis: {{ totalPrice() }} EUR
+  <br>
+  <button mat-raised-button color="primary" (click)="sendOrder()">Bestellung absenden</button>
+</div>
+<div class="options-group" *ngFor='let group of optionsGroups'>
   <mat-radio-group [(ngModel)]="group.selected">
     {{ group.group }} - {{ group.selected.price }} EUR
     <div>

@@ -8,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace kfz_configurator.Controllers
 {
     [ApiController]
-    [Route("[controller]/{group?}")]
+    [Route("[controller]")]
     public class OptionsController : ControllerBase
     {
         private readonly ILogger<OptionsController> _logger;
@@ -20,24 +20,33 @@ namespace kfz_configurator.Controllers
 
         public struct Option
         {
+            public int ID { get; set; }
             public string Group { get; set; }
             public string Name { get; set; }
-            public double Price { get; set; }
+            public decimal Price { get; set; }
             public string Description { get; set; }
         }
+
         [HttpGet]
-        public IEnumerable<Option> Get(string group)
+        public IEnumerable<Option> Get()
         {
-            return new Option[]{
-                new Option{Group="Motor", Name="1.0 L Benzin", Price=1000},
-                new Option{Group="Motor", Name="2.0 L Benzin", Price=2000},
-                new Option{Group="Motor", Name="2.0 L Diesel", Price=3000},
-                new Option{Group="Lackierung", Name="Alpinweiß Uni", Price=0},
-                new Option{Group="Lackierung", Name="Carbonschwarz Metallic", Price=1000},
-                new Option{Group="Lackierung", Name="Vergolded", Price=200000},
-                new Option{Group="Scheibenwischer", Name="Nein", Price=0},
-                new Option{Group="Scheibenwischer", Name="Ja", Price=1000},
-            }.Where(option => string.IsNullOrEmpty(group) || option.Group == group);
+            using (var reader = Database.Instance.Read(
+                "SELECT option_id, group_name, name, price, description FROM options"
+            ))
+            {
+                List<Option> options = new List<Option>();
+                while (reader.Read())
+                    options.Add(new Option
+                    {
+                        ID = (int)reader[0],
+                        Group = reader[1] as string,
+                        Name = reader[2] as string,
+                        Price = (decimal)reader[3],
+                        Description = reader[4] as string
+                    });
+                return options;
+            }
+
         }
     }
 }
