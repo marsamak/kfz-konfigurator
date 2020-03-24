@@ -8,7 +8,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomeComponent {
   optionsGroups: OptionGroup[];
+  http: HttpClient;
+  baseUrl: string;
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    this.http = http;
+    this.baseUrl = baseUrl;
     http.get<ConfigOption[]>(baseUrl + 'options').subscribe(result => {
       let groups = {};
       this.optionsGroups = [];
@@ -29,10 +33,19 @@ export class HomeComponent {
     this.optionsGroups.forEach(group => { price += group.selected.price });
     return price;
   }
-
   sendOrder() {
-    var selectedOptionsString = "";
-    this.optionsGroups.forEach(group => { selectedOptionsString += group.selected.id + ";" })
-    window.alert(selectedOptionsString);
+    let order = new Order;
+    order.totalPrice = this.totalPrice();
+    this.optionsGroups.forEach(group => { order.optionIds.push(group.selected.id); });
+    this.http.post<OrderResult>(this.baseUrl + "submitorder", order)
+      .subscribe(orderResult => { window.alert('Link to your order: ' + this.baseUrl + "vieworder/" + orderResult.orderId); });
   }
+}
+class Order {
+  optionIds: number[];
+  totalPrice: number;
+  constructor() { this.optionIds = []; }
+}
+class OrderResult {
+  orderId: number;
 }

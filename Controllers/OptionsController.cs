@@ -18,19 +18,10 @@ namespace kfz_configurator.Controllers
             _logger = logger;
         }
 
-        public struct Option
-        {
-            public int ID { get; set; }
-            public string Group { get; set; }
-            public string Name { get; set; }
-            public decimal Price { get; set; }
-            public string Description { get; set; }
-        }
-
         [HttpGet]
         public IEnumerable<Option> Get()
         {
-            using (var reader = Database.Instance.Read(
+            using (var reader = Database.Instance.Execute(
                 "SELECT option_id, group_name, name, price, description FROM options"
             ))
             {

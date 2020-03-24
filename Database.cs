@@ -7,9 +7,14 @@ class Database
     public static Database Instance { get; private set; }
     private NpgsqlConnection Connection { get; set; }
 
-    public DbDataReader Read(string sql)
+    public DbDataReader Execute(string sql, params (string, object)[] parameters)
     {
-        return new NpgsqlCommand(sql, Connection).ExecuteReader();
+        using (var cmd = new NpgsqlCommand(sql, Connection))
+        {
+            foreach ((string name, object value) in parameters)
+                cmd.Parameters.AddWithValue(name, value);
+            return cmd.ExecuteReader();
+        }
     }
 
     private Database(string connectionString)
